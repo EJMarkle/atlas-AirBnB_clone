@@ -39,6 +39,3 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue('id'in rep_str)
         self.assertTrue('created_at' in rep_str)
         self.assertTrue('updated_at'in rep_str)
-
-if __name__ == '__main__':
-    unittest.main()
