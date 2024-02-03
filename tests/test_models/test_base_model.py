@@ -36,6 +36,21 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         rep_str = str(self.my_model)
         self.assertTrue('BaseModel' in rep_str)
-        self.assertTrue('id'in rep_str)
+        self.assertTrue('id' in rep_str)
         self.assertTrue('created_at' in rep_str)
-        self.assertTrue('updated_at'in rep_str)
+        self.assertTrue('updated_at' in rep_str)
+
+    def test_save_new_instance(self):
+        new_base_model = BaseModel()
+        new_base_model.save()
+        self.assertIsNotNone(new_base_model.id)
+        self.assertIsNotNone(new_base_model.created_at)
+        self.assertIsNotNone(new_base_model.updated_at)
+
+    def test_save_existing_instance(self):
+        existing_base_model = BaseModel()
+        existing_base_model.save()
+        original_id = existing_base_model.id
+        existing_base_model.some_attribute = "some_value"
+        existing_base_model.save()
+        self.assertEqual(existing_base_model.id, original_id)
