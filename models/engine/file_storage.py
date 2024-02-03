@@ -5,7 +5,7 @@ This module will define the FileStorage class.
 import json
 import os
 import sys
-
+from ..base_model import BaseModel
 
 class FileStorage:
     """Class to serialize and deserialized instances to a JSON file."""
