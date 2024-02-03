@@ -6,6 +6,9 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+    This class holds the console commands
+    """
     prompt = "(hbnb)"
     def do_quit(self, arg):
         """
@@ -16,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """
-        Exits the command interpreter with CTRL-D
+        CTRL + D exits the command line interpreter
         """
         print()
         return True
