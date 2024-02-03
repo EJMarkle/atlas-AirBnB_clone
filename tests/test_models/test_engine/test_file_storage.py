@@ -22,15 +22,24 @@ class TestFileStorage(unittest.TestCase):
 
     def test_file_path(self) -> None:
         # Test __file_path is correctly set.
-        self.assertEqual(self.file_storage._FileStorage__file_path, self.test_file_path)
+        self.assertEqual(
+            self.file_storage._FileStorage__file_path,
+            self.test_file_path
+        )
 
     def test_objects(self) -> None:
         # Test if __objects is empty initally.
-        self.assertDictEqual(self.file_storage.all(), self.file_storage._FileStorage__objects)
+        self.assertDictEqual(
+            self.file_storage.all(),
+            self.file_storage._FileStorage__objects
+        )
 
     def test_all(self) -> None:
         # Test all() returns the __objects dictionary.
-        self.assertDictEqual(self.file_storage.all(), self.file_storage._FileStorage__objects)
+        self.assertDictEqual(
+            self.file_storage.all(),
+            self.file_storage._FileStorage__objects
+        )
 
     def test_new(self) -> None:
         # Test the new() method.
@@ -54,7 +63,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self) -> None:
         # Test the FileStorage reload() method.
-        new_file_storage= FileStorage()
+        new_file_storage = FileStorage()
         new_base_model = BaseModel()
         new_file_storage.new(new_base_model)
         new_file_storage.save()
