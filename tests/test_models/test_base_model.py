@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 class TestBaseModel(unittest.TestCase):
     """This class is for testing the BaseModel class."""
     def setUp(self):
-        # Test the creation of the class.
+        """Create the test environment."""
         self.my_model = BaseModel()
 
     def test_save(self):
