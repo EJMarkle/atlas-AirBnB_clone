@@ -11,6 +11,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Exits the command interpreter
         """
+        print("Goodbye!")
         return True
 
     def do_EOF(self, arg):
