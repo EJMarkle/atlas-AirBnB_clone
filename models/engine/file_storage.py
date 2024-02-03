@@ -3,6 +3,8 @@
 This module will define the FileStorage class.
 """
 import json
+import os
+import sys
 
 
 class FileStorage:
@@ -30,13 +32,12 @@ class FileStorage:
 
     def reload(self):
         """"Deserializes the JSON file to __objects."""
-        try:
-            with open(self.__file_path, 'r') as file:
-                data = json.load(file)
-                for key, obj_dict in data.items():
-                    class_name, obj_id = key.split('.')
-                    obj_class = globals()[class_name]
-                    obj = obj_class(**obj_dict)
-                    self.__objects[key] = obj
-        except FileNotFoundError:
-            pass
+        if not os.path.isfile(self.__file_path):
+            return
+        with open(self.__file_path, 'r') as file:
+            data = json.load(file)
+            for key, obj_dict in data.items():
+                class_name, obj_id = key.split('.')
+                obj_class = getattr(sys.modules[obj.__module__], class_name)
+                obj = obj_class(**obj_dict)
+                self.__objects[key] = obj
