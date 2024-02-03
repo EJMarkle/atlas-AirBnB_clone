@@ -38,6 +38,6 @@ class FileStorage:
             data = json.load(file)
             for key, obj_dict in data.items():
                 class_name, obj_id = key.split('.')
-                obj_class = getattr(sys.modules[obj.__module__], class_name)
+                obj_class = getattr(sys.modules[self.__module__], class_name)
                 obj = obj_class(**obj_dict)
                 self.__objects[key] = obj
