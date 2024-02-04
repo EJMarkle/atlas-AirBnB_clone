@@ -179,8 +179,11 @@ class HBNBCommand(cmd.Cmd):
 
         attr_value = args[3]
 
-        setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
-        storage.save()
+        if hasattr(storage.all()[key], attr_name):
+            setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
+            storage.save()
+        else:
+            print("** attribute doesn't exist **")
 
 
 if __name__ == '__main__':
