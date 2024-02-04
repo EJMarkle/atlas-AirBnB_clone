@@ -13,11 +13,13 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """
     This class holds the console commands
     """
     prompt = "(hbnb)"
+
     def handle_input(self):
         if sys.stdin.isatty():
             return input(self.prompt)
