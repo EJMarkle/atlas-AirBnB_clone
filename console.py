@@ -41,11 +41,15 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
+        new_instance = None
         try:
-            new_instance = eval(arg)()
+            class_name = arg
+            new_instance = globals()[class_name]()
             new_instance.save()
             print(new_instance.id)
-        except NameError:
+        except KeyError:
+            if new_instance:
+                storage.all().pop("{}.{}".format(class_name, new_instance.id), None)
             print("** class doesn't exist **")
 
     def do_show(self, arg):

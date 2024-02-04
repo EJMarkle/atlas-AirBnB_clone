@@ -33,11 +33,12 @@ class FileStorage:
     def reload(self):
         """"Deserializes the JSON file to __objects."""
         from models.base_model import BaseModel
+
+        class_list = [BaseModel]
+        
         if not os.path.isfile(FileStorage.__file_path):
             return
-        map = {
-            "BaseModel": BaseModel
-        }
+        map = {cls.__name__: cls for cls in class_list}
 
         with open(FileStorage.__file_path, 'r') as file:
             data = json.load(file)
