@@ -96,7 +96,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        if class_name not in storage.all():
+        valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+
+        if class_name not in valid_classes:
             if len(args) == 1:
                 print("** instance id missing **")
                 return
