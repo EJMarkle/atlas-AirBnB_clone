@@ -3,6 +3,7 @@
 This is the console that contains the entry point of the command interpreter.
 """
 import cmd
+import sys
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.user import User
@@ -12,16 +13,23 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """
     This class holds the console commands
     """
-    prompt = "(hbnb) "
+    prompt = "(hbnb)"
+
+    def handle_input(self):
+        if sys.stdin.isatty():
+            return input(self.prompt)
+        else:
+            return input()
+    
     def do_quit(self, arg):
         """
-        Exits the command interpreter
+        Quit command to exit the program
         """
-        print("Goodbye!")
         return True
 
     def do_EOF(self, arg):
@@ -65,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in storage.all():
+        if class_name not in ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -84,14 +92,21 @@ class HBNBCommand(cmd.Cmd):
         """
         from models import storage
         args = arg.split()
+    
         if not args:
             print("** class name missing **")
             return
 
         class_name = args[0]
-        if class_name not in storage.all():
-            print("** class doesn't exist **")
-            return
+        valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+
+        if class_name not in valid_classes:
+            if len(args) == 1:
+                print("** instance id missing **")
+                return
+            else:
+                print("** class doesn't exist **")
+                return
 
         if len(args) < 2:
             print("** instance id missing **")
@@ -117,7 +132,9 @@ class HBNBCommand(cmd.Cmd):
             print(instances)
         else:
             class_name = arg
-            if class_name not in storage.all():
+            valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+
+            if class_name not in valid_classes:
                 print("** class doesn't exist **")
                 return
 
@@ -135,7 +152,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        if class_name not in storage.all():
+        valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+
+        if class_name not in valid_classes:
             print("** class doesn't exist **")
             return
 
@@ -162,7 +181,12 @@ class HBNBCommand(cmd.Cmd):
 
         attr_value = args[3]
 
-        setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
+        current_value = getattr(storage.all()[key], attr_name, None)
+
+        if current_value is not None:
+            setattr(storage.all()[key], attr_name, type(current_value)(attr_value))
+        else:
+            setattr(storage.all()[key], attr_name, type(attr_value)(attr_value))
         storage.save()
 
 
