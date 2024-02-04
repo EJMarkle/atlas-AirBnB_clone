@@ -3,6 +3,7 @@
 This is the console that contains the entry point of the command interpreter.
 """
 import cmd
+import sys
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.user import User
@@ -17,6 +18,12 @@ class HBNBCommand(cmd.Cmd):
     This class holds the console commands
     """
     prompt = "(hbnb)"
+    def handle_input(self):
+        if sys.stdin.isatty():
+            return input(self.prompt)
+        else:
+            return input()
+    
     def do_quit(self, arg):
         """
         Quit command to exit the program
