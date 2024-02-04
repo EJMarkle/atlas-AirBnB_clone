@@ -4,7 +4,12 @@ This module will define the FileStorage class.
 """
 import json
 import os
-import sys
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -33,11 +38,13 @@ class FileStorage:
     def reload(self):
         """"Deserializes the JSON file to __objects."""
         from models.base_model import BaseModel
+        from models.user import User
+        
+        class_list = [BaseModel, User, State, City, Amenity, Place, Review]
+        
         if not os.path.isfile(FileStorage.__file_path):
             return
-        map = {
-            "BaseModel": BaseModel
-        }
+        map = {cls.__name__: cls for cls in class_list}
 
         with open(FileStorage.__file_path, 'r') as file:
             data = json.load(file)
