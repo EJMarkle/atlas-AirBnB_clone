@@ -40,7 +40,7 @@ class FileStorage:
         from models.base_model import BaseModel
         from models.user import User
         
-        class_list = [BaseModel, User]
+        class_list = [BaseModel, User, State, City, Amenity, Place, Review]
         
         if not os.path.isfile(FileStorage.__file_path):
             return
