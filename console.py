@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in storage.all():
+        if class_name not in ["BaseModel"]:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
