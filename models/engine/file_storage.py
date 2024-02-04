@@ -33,8 +33,9 @@ class FileStorage:
     def reload(self):
         """"Deserializes the JSON file to __objects."""
         from models.base_model import BaseModel
-
-        class_list = [BaseModel]
+        from models.user import User
+        
+        class_list = [BaseModel, User]
         
         if not os.path.isfile(FileStorage.__file_path):
             return
