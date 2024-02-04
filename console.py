@@ -90,16 +90,21 @@ class HBNBCommand(cmd.Cmd):
         """
         from models import storage
         args = arg.split()
+    
         if not args:
             print("** class name missing **")
             return
 
         class_name = args[0]
         if class_name not in storage.all():
-            print("** class doesn't exist **")
-            return
+            if len(args) == 1:
+                print("** instance id missing **")
+                return
+            else:
+                print("** class doesn't exist **")
+                return
 
-        if len(args) == 1:
+        if len(args) < 2:
             print("** instance id missing **")
             return
 
