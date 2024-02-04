@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in ["BaseModel"]:
+        if class_name not in ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -181,13 +181,12 @@ class HBNBCommand(cmd.Cmd):
 
         attr_value = args[3]
 
-        if not hasattr(storage.all()[key], attr_name):
-            print("** no attribute found **")
-            return
+        current_value = getattr(storage.all()[key], attr_name, None)
 
-        setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
-        updated_object_str = str(storage.all()[key])
-        print(updated_object_str)
+        if current_value is not None:
+            setattr(storage.all()[key], attr_name, type(current_value)(attr_value))
+        else:
+            setattr(storage.all()[key], attr_name, type(attr_value)(attr_value))
         storage.save()
 
 
