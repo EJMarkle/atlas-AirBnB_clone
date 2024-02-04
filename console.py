@@ -186,7 +186,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
-        print(storage.all()[key])
+        updated_object_str = str(storage.all()[key])
+        print(updated_object_str)
         storage.save()
 
 
