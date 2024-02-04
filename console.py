@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     """
     This class holds the console commands
     """
-    prompt = "(hbnb) "
+    prompt = "(hbnb)"
     def do_quit(self, arg):
         """
         Quit command to exit the program
@@ -163,7 +163,5 @@ class HBNBCommand(cmd.Cmd):
 
         setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
         storage.save()
-
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
