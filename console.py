@@ -181,6 +181,10 @@ class HBNBCommand(cmd.Cmd):
 
         attr_value = args[3]
 
+        if not hasattr(storage.all()[key], attr_name):
+            print("** no attribute found **")
+            return
+
         setattr(storage.all()[key], attr_name, type(getattr(storage.all()[key], attr_name))(attr_value))
         print(storage.all()[key])
         storage.save()
