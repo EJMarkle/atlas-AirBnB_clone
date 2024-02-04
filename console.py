@@ -11,14 +11,13 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models.user import User
-from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """
     This class holds the console commands
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
     def do_quit(self, arg):
         """
         Exits the command interpreter
@@ -54,13 +53,14 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.id)
         except KeyError:
             if new_instance:
-                storage.all().pop("{}.{}".format(class_name, new_instance.id), None)
+                FileStorage.all().pop("{}.{}".format(class_name, new_instance.id), None)
             print("** class doesn't exist **")
 
     def do_show(self, arg):
         """
         Prints the string representation of an instance
         """
+        from models import storage
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -83,6 +83,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Deletes an instance based on class name and ID
         """
+        from models import storage
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -111,6 +112,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representations of all instances based or not on the class name
         """
+        from models import storage
         if not arg:
             instances = [str(obj) for obj in storage.all().values()]
             print(instances)
@@ -127,6 +129,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Updates an instance based on the class name and id by adding or updating attribute
         """
+        from models import storage
         args = arg.split()
         if not args:
             print("** class name missing **")
