@@ -9,6 +9,4 @@ class State(BaseModel):
     """
     Class that represents a State
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.name = ""
+    name = ""
