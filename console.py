@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
             return input(self.prompt)
         else:
             return input()
-    
+
     def do_quit(self, arg):
         """
         Quit command to exit the program
@@ -60,7 +60,8 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.id)
         except KeyError:
             if new_instance:
-                FileStorage.all().pop("{}.{}".format(class_name, new_instance.id), None)
+                FileStorage.all().pop("{}.{}".format(class_name,
+                                                     new_instance.id), None)
             print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -92,13 +93,14 @@ class HBNBCommand(cmd.Cmd):
         """
         from models import storage
         args = arg.split()
-    
+
         if not args:
             print("** class name missing **")
             return
 
         class_name = args[0]
-        valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        valid_classes = ["BaseModel", "User", "State", "City", "Amenity",
+                         "Place", "Review"]
 
         if class_name not in valid_classes:
             if len(args) == 1:
@@ -124,7 +126,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-        Prints all string representations of all instances based or not on the class name
+        Prints all string representations of all instances based or not
+        on the class name
         """
         from models import storage
         if not arg:
@@ -132,18 +135,21 @@ class HBNBCommand(cmd.Cmd):
             print(instances)
         else:
             class_name = arg
-            valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+            valid_classes = ["BaseModel", "User", "State", "City",
+                             "Amenity", "Place", "Review"]
 
             if class_name not in valid_classes:
                 print("** class doesn't exist **")
                 return
 
-            instances = [str(obj) for key, obj in storage.all().items() if key.startswith(class_name)]
+            instances = [str(obj) for key, obj in storage.all().items()
+                         if key.startswith(class_name)]
             print(instances)
 
     def do_update(self, arg):
         """
-        Updates an instance based on the class name and id by adding or updating attribute
+        Updates an instance based on the class name and id by adding
+        or updating attribute
         """
         from models import storage
         args = arg.split()
@@ -152,7 +158,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        valid_classes = ["BaseModel", "User", "State", "City",
+                         "Amenity", "Place", "Review"]
 
         if class_name not in valid_classes:
             print("** class doesn't exist **")
@@ -184,9 +191,11 @@ class HBNBCommand(cmd.Cmd):
         current_value = getattr(storage.all()[key], attr_name, None)
 
         if current_value is not None:
-            setattr(storage.all()[key], attr_name, type(current_value)(attr_value))
+            setattr(storage.all()[key], attr_name, type(current_value)
+                    (attr_value))
         else:
-            setattr(storage.all()[key], attr_name, type(attr_value)(attr_value))
+            setattr(storage.all()[key], attr_name, type(attr_value)
+                    (attr_value))
         storage.save()
 
 
