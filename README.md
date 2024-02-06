@@ -28,7 +28,7 @@
 - Stores instances in a JSON file
 - Supports serialization and deserialization
 ---
-<a id="">commands</a>
+<a id="commands"></a>
 ## Commands
 ---
 | Command  | Description                                                                                      |
